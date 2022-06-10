@@ -1,0 +1,101 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+
+
+{% block content %}
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url({% static 'users/images/bg-01.jpg'%});">
+					<span class="login100-form-title-1">
+						Sign In
+					</span>
+				</div>
+
+				{% if messages %}
+			    	{% for message in messages%}
+			    	<div class="alert alert-{{message.tags}}">
+
+			    		{{message}}
+			    		
+			    	</div>
+			    	{% endfor %}
+			    {% endif %}
+
+				<form class="login100-form validate-form" method="POST">
+					{% csrf_token %}
+					<fieldset>
+						<div class="wrap-input100 validate-input m-b-26">
+
+							{{form|crispy}}
+
+						</div>
+
+
+					</fieldset>
+					<div class="flex-sb-m w-full p-b-30">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
+
+						<div>
+							<a href="{% url 'password_reset' %}" class="txt1">
+								Forgot Password?
+							</a>
+						</div>
+					</div>
+
+					<div class="border-top pt-0">
+						<small class="text-muted">
+							Need an Account? <a class= "ml-2" href="{% url 'register' %}"> Sign Up</a>
+						</small>
+						
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit">
+							Login
+						</button>
+					</div>
+
+
+					<div class="border-top pt-3">
+						<small class="text-muted">
+							 <a class= "ml-2" href="{% provider_login_url 'github' %}"> Sign up with GitHub </a>
+						</small>
+
+			</div>
+
+			<div class="social-login">
+                <a href="#" class="facebook">
+                  <span class="icon-facebook mr-3"></span> 
+                </a>
+                <a href="#" class="twitter">
+                  <span class="icon-twitter mr-3"></span> 
+                </a>
+                <a href="#" class="google">
+                  <span class="icon-google mr-3"></span> 
+                </a>
+                <a href="#" class="git">
+                  <span class="icon-git mr-3"></span>
+                </a>
+              </div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	
+
+
+{% endblock content %}
+
+
+

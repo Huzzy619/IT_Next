@@ -1,0 +1,69 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+
+
+{% block content %}
+
+<!--===============================================================================================-->  
+
+</head>
+	<body>
+		
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100">
+				 <div class="login100-form-title" style="background-image: url({% static 'users/images/vlcsnap-2017-03-02-12h20m50s942.png' %});">
+						<span class="login100-form-title-1">
+							Join Today
+						</span>
+				 </div>
+
+					
+
+					<form class="login100-form validate-form" method="POST">
+						{% csrf_token %}
+						<fieldset>
+							<div class="wrap-input100 validate-input m-b-26">
+
+							{{form|crispy}}
+
+							</div>
+
+
+						</fieldset>
+						
+
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" type="submit">
+								Sign Up
+							</button>
+						</div> 
+						
+						<div class="border-top pt-3">
+									<small class="text-muted">
+										Already Have an Account? <a class= "ml-2" href="{% url 'login' %}"> Sign in</a>
+									</small>
+			
+						</div>
+					
+						
+						<div class="border-top pt-3">
+							<small class="text-muted">
+								 <a class= "ml-2" href="{% provider_login_url 'github' %}"> Sign up with GitHub </a>
+							</small>
+	
+				</div>
+				
+						
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+
+	
+{% endblock content %}
