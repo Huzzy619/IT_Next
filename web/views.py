@@ -19,6 +19,7 @@ def test(request):
     print(cart)
     # print(new)
     print(product)
+    print("hi")
     this = product.cart__set.all()
     print(this)
     return HttpResponse("You are good to go ")
