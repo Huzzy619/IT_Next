@@ -1,8 +1,9 @@
-from .models import *
 import random
+
 from django.contrib import messages
-from django.shortcuts import redirect
 from django.http import JsonResponse
+
+from .models import *
 
 
 def create_order(request):
@@ -29,17 +30,18 @@ def create_order(request):
         product = cart.product_set.all()
         if OrderItems.objects.filter(order=neworder, name=cart.product__product_name, price=cart.product__new_price, qty=cart.product_qty).exists():
             messages.error(request, "Order created already")
-            return JsonResponse({'status':'Order created already'})
+            return JsonResponse({'status': 'Order created already'})
         else:
-            
+
             if cart:
                 for item in cart:
-                    OrderItems.objects.create(order=neworder, name=item.product.product_name,mprice=item.product.new_price, qty=item.product_qty)
+                    OrderItems.objects.create(
+                        order=neworder, name=item.product.product_name, mprice=item.product.new_price, qty=item.product_qty)
 
             # cart.delete()
                     messages.success(request, "Order created successfully")
                     return JsonResponse({'status': "Order created successfully"})
             else:
-                return JsonResponse({'status':"Order cannot be placed with an empty cart"})
+                return JsonResponse({'status': "Order cannot be placed with an empty cart"})
 
     # return redirect('checkout')

@@ -20,7 +20,8 @@ def addtocart(request):
 
                     if product_check.quantity >= product_qty:
 
-                        Cart.objects.create(user=request.user, product_id=prod_id, product_qty=product_qty)
+                        Cart.objects.create(
+                            user=request.user, product_id=prod_id, product_qty=product_qty)
                         return JsonResponse({'status': "Product added successfully"})
                     else:
                         return JsonResponse({'status': "Only " + str(product_check.quantity) + " is available"})
@@ -50,15 +51,12 @@ def addtowish(request):
                 else:
                     product_qty = int(request.POST.get('product_qty'))
 
-                    Wishlist.objects.create(user=request.user, product_id=prod_id, product_qty=product_qty)
+                    Wishlist.objects.create(
+                        user=request.user, product_id=prod_id, product_qty=product_qty)
                     return JsonResponse({'status': "Product added to Wishlist successfully"})
-
-
-
 
             else:
                 return JsonResponse({'status': "No such product found"})
-
 
         else:
 
@@ -77,7 +75,7 @@ def updatecart(request):
             Cart.objects.filter(product_id=prod_id, user=request.user) \
                 .update(product_qty=new_product_qty)
 
-            # cart.product_qty = new_product_qty 
+            # cart.product_qty = new_product_qty
 
             # cart.save()
             # cart.update(product_qty = new_product_qty)
@@ -122,7 +120,8 @@ def deletewish(request):
             # print(prod_id)
             if (Wishlist.objects.filter(user=request.user, product_id=prod_id).exists()):
 
-                wish = Wishlist.objects.get(user=request.user, product_id=prod_id)
+                wish = Wishlist.objects.get(
+                    user=request.user, product_id=prod_id)
 
                 wish.delete()
                 return JsonResponse({'status': "item removed from wishlist sucessfully"})

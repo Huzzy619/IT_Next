@@ -13,19 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from re import template
-from unicodedata import name
-from django import urls
-from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
-from web import views as myview
-from users import views as userview
+from django.contrib import admin
 from django.contrib.auth import views as auth_view
-
+from django.urls import include, path
 from rest_framework import routers
 from users import api_views
+from users import views as userview
+from web import views as myview
 
 # define a rounter and register the restframework views
 router = routers.DefaultRouter()
@@ -62,20 +58,25 @@ urlpatterns = [
          name='password_reset'),
 
     path('password-reset/done/',
-         auth_view.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),
+         auth_view.PasswordResetDoneView.as_view(
+             template_name='users/password_reset_done.html'),
          name='password_reset_done'),
 
     path('password-reset-confirm/<uidb64>/<token>/',
-         auth_view.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),
+         auth_view.PasswordResetConfirmView.as_view(
+             template_name='users/password_reset_confirm.html'),
          name='password_reset_confirm'),
 
     path('password-reset-complete/',
-         auth_view.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
+         auth_view.PasswordResetCompleteView.as_view(
+             template_name='users/password_reset_complete.html'),
          name='password_reset_complete'),
 
-    path('test/', myview.test, name='test')
+
+
 
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
